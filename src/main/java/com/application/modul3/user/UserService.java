@@ -8,32 +8,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+
 	@Autowired
 	private UserRepository userRepository;
-
-	public List<UserDB> getAllUsers() {
-		return userRepository.findAll();
-	}
-
-	public UserDB createUser(UserDB user) {
+	
+	public User createUser(User user) {
 		return userRepository.saveAndFlush(user);
 	}
 
-	public void deleteUser(Integer userId) {
-		userRepository.deleteById(userId);
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
 	}
 
-	public UserDB updateUser(UserDB userToUpdate) {
-		UserDB userFromDb = userRepository.getById(userToUpdate.getId());
-		userFromDb.setFirstName(userToUpdate.getFirstName());
-		userFromDb.setLastName(userToUpdate.getLastName());
-		userFromDb.setPassword(userToUpdate.getPassword());
-		userFromDb.setEmail(userToUpdate.getEmail());
-		userRepository.flush();
-		return userFromDb;
+	public User getUserById(Integer id) {
+		Optional<User> userOpt = userRepository.findById(id);
+		if (userOpt.isPresent()) {
+			return userOpt.get();
+		}
+		return null;
 	}
-
-	public Optional<UserDB> getUserById(Integer id) {
-		return userRepository.findById(id);
+	
+	public void deleteUserById(Integer id) {
+		userRepository.deleteById(id);
 	}
 }

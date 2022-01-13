@@ -1,12 +1,32 @@
 package com.application.modul3.user;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user", schema = "administration")
 public class User {
+
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@Column(name = "first_name")
 	private String firstName;
+
+	@Column(name = "last_name")
 	private String lastName;
-	private String email;
-	private String password;
-	private Integer age;
+
+	@Column(name = "mail")
+	private String mail;
+
+	@Column(name = "address")
+	private String address;
 
 	public Integer getId() {
 		return id;
@@ -32,27 +52,25 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getMail() {
+		return mail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }
+
+////JPA - Java Persistence Api
+//public static void main() {
+//	User user = bazaDeDate.getUser(1);
+//	
+//}
