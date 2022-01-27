@@ -53,11 +53,11 @@ public class Book {
 
 	public LocalDate getYearBook() {
 		return yearBook;
-		// return LocalDate.yearBook.getYear() ;
 	}
 
-	public void setYearBook(String date) {
-		this.yearBook = LocalDate.parse(date);
+	
+	public void setYearBook(LocalDate yearBook) {
+		this.yearBook = yearBook;
 	}
 
 	public String getIsbnBook() {

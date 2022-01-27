@@ -43,7 +43,7 @@ public class BookService {
 	public Book updateBook(Book book, Integer id) {
 		Book bookUpdate = getBookById(id);
 		bookUpdate.setTitleBook(book.getTitleBook());
-		bookUpdate.setYearBook(String.valueOf(book.getYearBook()));
+		bookUpdate.setYearBook(book.getYearBook());
 		bookUpdate.setIsbnBook(book.getIsbnBook());
 		bookRepository.flush();
 		return bookUpdate;
