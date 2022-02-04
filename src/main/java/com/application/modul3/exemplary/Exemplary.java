@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.application.modul3.book.Book;
+import com.application.modul3.publisher.Publisher;
 
 @Entity(name = "exemplary")
 @Table(name = "exemplary", schema = "administration")
@@ -25,7 +26,6 @@ public class Exemplary {
 	@Column(name = "date")
 	private LocalDate date;
 
-	// TODO de pus editura la exemplar
 	@Column(name = "code")
 	private String code;
 
@@ -35,6 +35,10 @@ public class Exemplary {
 	@ManyToOne()
 	@JoinColumn(name = "book_id")
 	private Book book;
+	
+	@ManyToOne()
+	@JoinColumn(name = "publisher_id")
+	private Publisher publisher;
 
 	public Integer getId() {
 		return id;
@@ -74,5 +78,13 @@ public class Exemplary {
 
 	public void setPageNumbers(Integer pageNumbers) {
 		this.pageNumbers = pageNumbers;
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 }
