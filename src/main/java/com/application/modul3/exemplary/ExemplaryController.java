@@ -27,7 +27,7 @@ public class ExemplaryController {
 	private ExemplaryMapper exemplaryMapper;
 
 	@PostMapping("/add/{bookId}/{publisherId}")
-	public ResponseEntity<?> createExemplary(@PathVariable Integer bookId, @PathVariable Integer publisherId,
+	public ResponseEntity<Object> createExemplary(@PathVariable Integer bookId, @PathVariable Integer publisherId,
 			@RequestBody ExemplaryDTO exemplaryDTO) {
 		try {
 			Exemplary createdExemplary = exemplaryService.createExemplary(bookId, publisherId,
