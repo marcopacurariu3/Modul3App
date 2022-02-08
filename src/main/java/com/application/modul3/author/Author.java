@@ -1,6 +1,7 @@
 package com.application.modul3.author;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +10,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.application.modul3.book.Book;
 import com.application.modul3.gender.Gender;
 
 @Entity
@@ -33,6 +36,9 @@ public class Author {
 
 	@Column(name = "death_date")
 	private LocalDate deathDate;
+
+	@ManyToMany(mappedBy = "authors")
+	private Set<Book> books;
 
 	public Integer getId() {
 		return id;
@@ -72,6 +78,22 @@ public class Author {
 
 	public void setDeathDate(String deathDate) {
 		this.deathDate = LocalDate.parse(deathDate);
+	}
+
+	public Set<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<Book> books) {
+		this.books = books;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public void setDeathDate(LocalDate deathDate) {
+		this.deathDate = deathDate;
 	}
 
 }

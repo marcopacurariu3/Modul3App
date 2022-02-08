@@ -33,7 +33,9 @@ public class ExemplaryController {
 			Exemplary createdExemplary = exemplaryService.createExemplary(bookId, publisherId,
 					exemplaryMapper.exemplaryDTO2Exemplary(exemplaryDTO));
 			return ResponseEntity.ok(exemplaryMapper.exemplary2ExemplaryDTO(createdExemplary));
-			//return new ResponseEntity<>(exemplaryMapper.exemplary2ExemplaryDTO(createdExemplary), HttpStatus.OK);
+			// return new
+			// ResponseEntity<>(exemplaryMapper.exemplary2ExemplaryDTO(createdExemplary),
+			// HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -48,5 +50,4 @@ public class ExemplaryController {
 	public void deleteExemplary(@PathVariable Integer exemplaryId) {
 		exemplaryService.deleteExemplary(exemplaryId);
 	}
-
 }

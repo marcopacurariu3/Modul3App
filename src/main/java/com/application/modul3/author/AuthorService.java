@@ -2,6 +2,8 @@ package com.application.modul3.author;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class AuthorService {
 	// obtinerea tuturor autorilor
 	public List<Author> getAllAuthor() {
 		return authorRepository.findAll();
+	}
+	
+	public Set<Author> getAuthors(Set<Integer> authorIds) {
+		return authorRepository.findByIdIn(authorIds);
 	}
 
 	// obtinerea unui autor dupa id

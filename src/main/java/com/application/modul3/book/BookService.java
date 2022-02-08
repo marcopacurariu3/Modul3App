@@ -3,9 +3,13 @@ package com.application.modul3.book;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.application.modul3.author.Author;
+import com.application.modul3.author.AuthorService;
 
 
 @Service
@@ -13,10 +17,20 @@ public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private AuthorService authorService;
 
 	// cream o inregistre si o salvam
 	public Book createBook(Book book) {
 		return bookRepository.saveAndFlush(book);
+	}
+	
+	public Book createBook(Book book, Set<Integer> authorIds) {
+		Set<Author> authors = authorService.getAuthors(authorIds);
+		for(Author author : authors) {
+			book.addAuthor(author);
+		}
+		return bookRepository.save(book);
 	}
 
 	// obtinem toate inre din db

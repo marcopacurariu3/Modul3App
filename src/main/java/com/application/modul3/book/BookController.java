@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.application.modul3.book.dto.BookCreateDTO;
 import com.application.modul3.book.dto.BookDTO;
 import com.application.modul3.book.mapper.BookMapper;
 
@@ -28,6 +29,13 @@ public class BookController {
 	public BookDTO createBook(@RequestBody BookDTO bookDTO) {
 		Book createdBook = bookService.createBook(bookMapper.bookDTO2Book(bookDTO));
 		return bookMapper.book2BookDTO(createdBook);
+	}
+
+	@PostMapping("/with-authors")
+	public BookDTO createBookWithAuthor(@RequestBody BookCreateDTO bookCreateDTO) {
+		Book createBook = bookService.createBook(bookMapper.bookCreateDTO2Book(bookCreateDTO),
+				bookCreateDTO.getAuthorIds());
+		return bookMapper.book2BookDTO(createBook);
 	}
 
 	@GetMapping("/list")
