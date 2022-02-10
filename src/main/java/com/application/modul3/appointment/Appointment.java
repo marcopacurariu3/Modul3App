@@ -3,9 +3,12 @@ package com.application.modul3.appointment;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -17,15 +20,17 @@ import com.application.modul3.user.User;
 @Table(name = "appointment", schema = "administration")
 public class Appointment {
 
-	@EmbeddedId
-	private AppointmentId id;
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("exemplaryId")
+	@JoinColumn(name = "exemplary_id")
 	private Exemplary exemplary;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@MapsId("userId")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	@Column(name = "date_from")
@@ -34,23 +39,11 @@ public class Appointment {
 	@Column(name = "date_until")
 	private LocalDateTime dateUntil;
 
-	public Appointment(Exemplary exemplary, User user) {
-		this.id = new AppointmentId(exemplary.getId(), user.getId());
-		this.exemplary = exemplary;
-		this.user = user;
-	}
-
-	// used for Hibernate
-	@SuppressWarnings("unused")
-	private Appointment() {
-
-	}
-
-	public AppointmentId getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(AppointmentId id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -85,48 +78,4 @@ public class Appointment {
 	public void setDateUntil(LocalDateTime dateUntil) {
 		this.dateUntil = dateUntil;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((exemplary == null) ? 0 : exemplary.hashCode());
-		result = prime * result + ((dateFrom == null) ? 0 : dateFrom.hashCode());
-		result = prime * result + ((dateUntil == null) ? 0 : dateUntil.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Appointment other = (Appointment) obj;
-		if (exemplary == null) {
-			if (other.exemplary != null)
-				return false;
-		} else if (!exemplary.equals(other.exemplary))
-			return false;
-		if (dateFrom == null) {
-			if (other.dateFrom != null)
-				return false;
-		} else if (!dateFrom.equals(other.dateFrom))
-			return false;
-		if (dateUntil == null) {
-			if (other.dateUntil != null)
-				return false;
-		} else if (!dateUntil.equals(other.dateUntil))
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
-
 }

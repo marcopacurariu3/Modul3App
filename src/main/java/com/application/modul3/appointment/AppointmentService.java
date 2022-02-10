@@ -24,7 +24,6 @@ public class AppointmentService {
 	private UserService userService;
 
 	public Set<Appointment> getAllAppointmentsForUser(Integer userId) {
-		User user = userService.getUserById(userId);
 		return appointmentRepository.findByUser(userId);
 	}
 
@@ -37,7 +36,11 @@ public class AppointmentService {
 		Exemplary exemplary = exemplaryRepository.getById(exemplaryId);
 		User user = userService.getUserById(userId);
 
-		Appointment appointment = new Appointment(exemplary, user);
+//		if(user == null || exemplary == null) {
+//			//exception
+//		}
+
+		Appointment appointment = new Appointment();
 		appointment.setDateFrom(LocalDateTime.now());
 		appointment.setDateUntil(LocalDateTime.now());
 		exemplary.addAppointment(appointment);

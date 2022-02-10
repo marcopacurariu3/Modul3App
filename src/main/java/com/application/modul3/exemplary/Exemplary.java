@@ -99,6 +99,7 @@ public class Exemplary {
 
 	public void addAppointment(Appointment appointment) {
 		appointments.add(appointment);
+		appointment.setExemplary(this);
 	}
 
 //	@Override

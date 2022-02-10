@@ -1,8 +1,6 @@
 package com.application.modul3.user;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -83,6 +81,7 @@ public class User {
 
 	public void addAppointment(Appointment appointment) {
 		this.appointments.add(appointment);
+		appointment.setUser(this);
 	}
 
 	public Set<Appointment> getAppointments() {
