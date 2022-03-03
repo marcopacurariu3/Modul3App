@@ -11,12 +11,16 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	public User createUser(User user) {
 		return userRepository.saveAndFlush(user);
 	}
 
 	public List<User> getAllUsers() {
+		List<User> users = userRepository.findAll();
+		for (User user : users) {
+			user.getAppointments();
+		}
 		return userRepository.findAll();
 	}
 
@@ -27,7 +31,7 @@ public class UserService {
 		}
 		return null;
 	}
-	
+
 	public void deleteUserById(Integer id) {
 		userRepository.deleteById(id);
 	}

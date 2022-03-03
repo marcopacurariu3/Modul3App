@@ -58,7 +58,7 @@ public class BookController {
 		return bookService.updateBook(book, id);
 	}
 
-	@GetMapping("/{title}")
+	@GetMapping("/title/{title}")
 	public List<Book> findByTitle(@PathVariable("title") String title) {
 		return bookService.findByTitle(title);
 

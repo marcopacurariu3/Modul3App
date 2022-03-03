@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.application.modul3.appointment.dto.AppointmentCreateDTO;
 import com.application.modul3.appointment.dto.AppointmentDTO;
 import com.application.modul3.appointment.dto.AppointmentInfoDTO;
 import com.application.modul3.appointment.mapper.AppointmentMapper;
@@ -31,17 +32,20 @@ public class AppointmentController {
 	@GetMapping("/list/{userId}")
 	public List<AppointmentDTO> getAppointmentsForUser(@PathVariable Integer userId) {
 		List<Appointment> appointmentDBs = new ArrayList<>(appointmentService.getAllAppointmentsForUser(userId));
-		return appointmentMapper.appointmentDBList2AppointmentList(appointmentDBs);
+		return appointmentMapper.appointmentList2AppointmentListDTO(appointmentDBs);
 	}
 
 	@PostMapping("/find")
-	public List<ExemplaryDTO> getExemplariesForUserAndPeriod(@RequestBody AppointmentInfoDTO appointmentInfoDTO) {
-		List<Exemplary> exemplaries = appointmentService.getExemplariesForUserAndPeriod(appointmentInfoDTO);
+	public List<ExemplaryDTO> getExemplariesForPeriod(@RequestBody AppointmentInfoDTO appointmentInfoDTO) {
+		List<Exemplary> exemplaries = appointmentService.getExemplariesForPeriod(appointmentInfoDTO.getDateFrom(),
+				appointmentInfoDTO.getDateUntil(), appointmentInfoDTO.getBookId());
 		return exemplaryMapper.exemplaryList2ExemplaryDTOList(exemplaries);
 	}
 
-	@GetMapping("/book/{exemplaryId}/{userId}")
-	public void book(@PathVariable Integer exemplaryId, @PathVariable Integer userId) {
-		appointmentService.book(exemplaryId, userId);
+	@PostMapping("/book/{exemplaryId}/{userId}")
+	public void book(@RequestBody AppointmentCreateDTO appointmentCreateDTO, @PathVariable Integer exemplaryId,
+			@PathVariable Integer userId) {
+		appointmentService.book(appointmentMapper.appointmentCreateDTO2Appointment(appointmentCreateDTO), exemplaryId,
+				userId);
 	}
 }

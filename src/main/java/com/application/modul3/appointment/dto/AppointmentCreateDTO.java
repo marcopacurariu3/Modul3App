@@ -2,11 +2,10 @@ package com.application.modul3.appointment.dto;
 
 import java.time.LocalDate;
 
-public class AppointmentInfoDTO {
-	
+public class AppointmentCreateDTO {
+
 	private LocalDate dateFrom;
 	private LocalDate dateUntil;
-	private Integer bookId;
 
 	public LocalDate getDateFrom() {
 		return dateFrom;
@@ -23,13 +22,4 @@ public class AppointmentInfoDTO {
 	public void setDateUntil(LocalDate dateUntil) {
 		this.dateUntil = dateUntil;
 	}
-
-	public Integer getBookId() {
-		return bookId;
-	}
-
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
-	}
-
 }

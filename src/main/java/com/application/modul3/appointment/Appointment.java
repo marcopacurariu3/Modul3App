@@ -1,6 +1,6 @@
 package com.application.modul3.appointment;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.application.modul3.exemplary.Exemplary;
@@ -34,10 +33,10 @@ public class Appointment {
 	private User user;
 
 	@Column(name = "date_from")
-	private LocalDateTime dateFrom;
+	private LocalDate dateFrom;
 
 	@Column(name = "date_until")
-	private LocalDateTime dateUntil;
+	private LocalDate dateUntil;
 
 	public Integer getId() {
 		return id;
@@ -63,19 +62,20 @@ public class Appointment {
 		this.user = user;
 	}
 
-	public LocalDateTime getDateFrom() {
+	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(LocalDateTime dateFrom) {
+	public void setDateFrom(LocalDate dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public LocalDateTime getDateUntil() {
+	public LocalDate getDateUntil() {
 		return dateUntil;
 	}
 
-	public void setDateUntil(LocalDateTime dateUntil) {
+	public void setDateUntil(LocalDate dateUntil) {
 		this.dateUntil = dateUntil;
 	}
+
 }
