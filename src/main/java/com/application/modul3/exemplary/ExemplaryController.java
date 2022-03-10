@@ -17,7 +17,7 @@ import com.application.modul3.exemplary.dto.ExemplaryDTO;
 import com.application.modul3.exemplary.mapper.ExemplaryMapper;
 
 @RestController
-@RequestMapping("/exemplary")
+@RequestMapping("/exemplaries")
 public class ExemplaryController {
 
 	@Autowired
@@ -46,7 +46,7 @@ public class ExemplaryController {
 		return exemplaryMapper.exemplaryList2ExemplaryDTOList(exemplaryService.findExemplariesByBookId(bookId));
 	}
 
-	@DeleteMapping("/{exemplaryId}")
+	@DeleteMapping("delete/{exemplaryId}")
 	public void deleteExemplary(@PathVariable Integer exemplaryId) {
 		exemplaryService.deleteExemplary(exemplaryId);
 	}

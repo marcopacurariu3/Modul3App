@@ -7,12 +7,14 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import com.application.modul3.appointment.Appointment;
@@ -37,17 +39,22 @@ public class Exemplary {
 	@Column(name = "page_numbers")
 	private Integer pageNumbers;
 
-	@ManyToOne()
-	@JoinColumn(name = "book_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "book_id", updatable = false)
 	private Book book;
 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "publisher_id")
 	private Publisher publisher;
 
 	@OneToMany(mappedBy = "exemplary", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REMOVE }, orphanRemoval = true)
+			CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	private List<Appointment> appointments = new ArrayList<>();
+
+	@PreRemove
+	public void delete() {
+		this.book.removeExemplary(this);
+	}
 
 	public Integer getId() {
 		return id;
@@ -102,66 +109,29 @@ public class Exemplary {
 		appointment.setExemplary(this);
 	}
 
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((appointments == null) ? 0 : appointments.hashCode());
-//		result = prime * result + ((book == null) ? 0 : book.hashCode());
-//		result = prime * result + ((code == null) ? 0 : code.hashCode());
-//		result = prime * result + ((date == null) ? 0 : date.hashCode());
-//		result = prime * result + ((id == null) ? 0 : id.hashCode());
-//		result = prime * result + ((pageNumbers == null) ? 0 : pageNumbers.hashCode());
-//		result = prime * result + ((publisher == null) ? 0 : publisher.hashCode());
-//		return result;
-//	}
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Exemplary other = (Exemplary) obj;
-//		if (appointments == null) {
-//			if (other.appointments != null)
-//				return false;
-//		} else if (!appointments.equals(other.appointments))
-//			return false;
-//		if (book == null) {
-//			if (other.book != null)
-//				return false;
-//		} else if (!book.equals(other.book))
-//			return false;
-//		if (code == null) {
-//			if (other.code != null)
-//				return false;
-//		} else if (!code.equals(other.code))
-//			return false;
-//		if (date == null) {
-//			if (other.date != null)
-//				return false;
-//		} else if (!date.equals(other.date))
-//			return false;
-//		if (id == null) {
-//			if (other.id != null)
-//				return false;
-//		} else if (!id.equals(other.id))
-//			return false;
-//		if (pageNumbers == null) {
-//			if (other.pageNumbers != null)
-//				return false;
-//		} else if (!pageNumbers.equals(other.pageNumbers))
-//			return false;
-//		if (publisher == null) {
-//			if (other.publisher != null)
-//				return false;
-//		} else if (!publisher.equals(other.publisher))
-//			return false;
-//		return true;
-//	}
-	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Exemplary other = (Exemplary) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }

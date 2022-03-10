@@ -39,7 +39,6 @@ public class Book {
 	// entitatea parinte
 	@OneToMany(mappedBy = "book", fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE }, orphanRemoval = true)
-	// @JsonIgnoreProperties("book")
 	private Set<Exemplary> exemplaries;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
