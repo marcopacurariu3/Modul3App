@@ -48,7 +48,7 @@ public class Exemplary {
 	private Publisher publisher;
 
 	@OneToMany(mappedBy = "exemplary", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REMOVE }, fetch = FetchType.LAZY)
+			CascadeType.REMOVE }, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<Appointment> appointments = new ArrayList<>();
 
 	@PreRemove

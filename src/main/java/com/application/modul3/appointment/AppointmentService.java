@@ -34,8 +34,9 @@ public class AppointmentService {
 
 	public void book(Appointment appointment, Integer exemplaryId, Integer userId) {
 		if (appointment.getDateFrom().isAfter(appointment.getDateUntil())) {
-			throw new ValidationException("End date of the appointment is after start date");
+			throw new ValidationException("End date of the appointment is before start date");
 		}
+
 		Exemplary exemplary = exemplaryRepository.findById(exemplaryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Exemplary not found"));
 		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
